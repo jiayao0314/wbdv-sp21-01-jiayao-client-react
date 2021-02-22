@@ -27,6 +27,7 @@ const CourseRow = (
             {
                 !editing &&
                 <Link to="/editor">
+                    <i className="fa fa-file" style={{padding:"10px"}}></i>
                     {course.title}
                 </Link>
             }
@@ -38,20 +39,22 @@ const CourseRow = (
                     value={title}/>
             }
         </td>
-        <td>{course.owner}</td>
-        <td>{course.lastModified}</td>
+        <td className="d-none d-md-table-cell">{course.owner}</td>
+        <td className="d-none d-lg-table-cell">{course.lastModified}</td>
         <td>
-            <i onClick={() => deleteCourse(course)} className="fas fa-trash"></i>
+            {
+                editing &&
+                <i onClick={() => deleteCourse(course)} className="fas fa-times float-right" style={{color: "red"}}/>}
             {/*<i onClick={() => setEditing((prevEditing) => !prevEditing)} className="fas fa-edit"></i>*/}
 
             {
                 editing &&
-                <i onClick={() => saveCourse()} className="fas fa-check"></i>
+                <i onClick={() => saveCourse()} className="fas fa-check float-right" style={{color: "green"}}/>
             }
 
             {
                 !editing &&
-                <i onClick={() => setEditing(true)} className="fas fa-edit"></i>
+                <i onClick={() => setEditing(true)} className="fas fa-edit float-right" style={{color: "blue"}}/>
             }
 
 

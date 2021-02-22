@@ -1,0 +1,32 @@
+
+/*put "update" and "delete" icons over the image(top right corner)*/
+
+.my-controls-at-top-right1 {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}
+
+.my-controls-at-top-right2 {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+.my-controls-at-bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.card {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border: 0px;
+}
+
+.card-content {
+    border: lightgrey solid 3px;
+    padding:  3px;
+    /*color: red;*/
+}
