@@ -31,7 +31,6 @@ const CourseGrid = ({
         </div>
 
         <div className="row">
-            {/*<div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 ">*/}
                 {
                     courses.map(course =>
                         <CourseCard
@@ -41,7 +40,6 @@ const CourseGrid = ({
                             course={course}/>
                     )
                 }
-            {/*</div>*/}
         </div>
 
     </div>

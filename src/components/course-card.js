@@ -2,13 +2,13 @@ import React, {useState} from 'react'
 import {Link} from "react-router-dom";
 import "../course-card/course-card.css";
 
-const div1 = {
-    width: "300px",
-    margin: "30px auto",
-    backgroundColor: "#44014C",  //驼峰法
-    minHeight: "200px",
-    boxSizing: "border-box"
-};
+// const div1 = {
+//     width: "300px",
+//     margin: "30px auto",
+//     backgroundColor: "#44014C",  //驼峰法
+//     minHeight: "200px",
+//     boxSizing: "border-box"
+// };
 
 const CourseCard = ({
     course,
@@ -29,7 +29,6 @@ const CourseCard = ({
 
     return(
         <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-        {/*<div className="card col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">*/}
             <div className="card-content">
                 <img src="https://www.valuecoders.com/blog/wp-content/uploads/2016/08/react.png" className="card-img-top" alt="..."/>
                 <div className="card-body">

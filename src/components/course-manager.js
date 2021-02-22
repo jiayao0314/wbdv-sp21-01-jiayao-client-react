@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import CourseTable from "./course-table";
 import CourseGrid from "./course-grid";
 import {Link, Route} from "react-router-dom";
@@ -10,15 +10,21 @@ const stickyBottomRight = {
     position: "fixed",
     bottom: "30px",
     right: "30px",
-    color: "red"
+    color: "red",
+    zIndex: "10000"
 };
 
 
 export default class CourseManager
   extends React.Component {
-  state = {
-    courses: []
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            courses: [],
+            courseName: ""
+        }
+    }
+
 
   componentDidMount() {
     courseService.findAllCourses()
@@ -27,6 +33,8 @@ export default class CourseManager
         // .then(courses => this.setState({courses: courses}))
   }
   // componentDidMount = () => findAllCourses().then(..)
+
+
 
     deleteCourse = (courseToDelete) => {
         courseService.deleteCourse(courseToDelete._id)
@@ -70,16 +78,13 @@ export default class CourseManager
 //             )})}
 
   addCourse = () => {
-    // alert('add course')
     const newCourse = {
-      title: "New Course",
+      title: this.state.courseName,
       owner: "me",
       lastModified: "2/10/2021"
     }
     courseService.createCourse(newCourse)
-        .then(actualCourse => {
-          // this.state.courses.push(actualCourse)
-          // this.setState(this.state)
+        .then(actualCourse =>
             this.setState(
                 (prevState) => ({
                     ...prevState,
@@ -87,36 +92,52 @@ export default class CourseManager
                         ...prevState.courses,
                         actualCourse
                     ]
-                })
-            )
-        })
+                })))
   }
 
+
+  addCourseWithInput(e) {
+        this.setState({
+            courseName: e.target.value}
+        )
+  }
+
+    // onInputChange = e => this.setState({value: e.target.value})
+
   render() {
+
     return(
       <div>
-          <nav className="navbar fixed-top navbar-light bg-light">
+        <nav className="navbar fixed-top navbar-light bg-light">
 
-              <Link to="/">
-                  <button className="navbar-toggler" type="button" data-toggle="collapse"
-                          data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                          aria-expanded="false" aria-label="Toggle navigation">
-                      <span className="navbar-toggler-icon"></span>
-                  </button>
-              </Link>
-              <a className="navbar-brand d-none d-lg-table-cell" href="/">Course Manager</a>
-              {/*<h1 className="float-left">Course Manager</h1>*/}
-              <input type="text" class="form-control col-9 col-sm-9 col-md-8"/>
+        <Link to="/">
+            <button className="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"/>
+            </button>
+        </Link>
+        <a className="navbar-brand d-none d-lg-table-cell" href="/">Course Manager</a>
 
-              <i onClick={this.addCourse} className="fas fa-plus-circle float-right fa-2x" style={{color: "red"}}/>
+        <input type="text"
+               value={this.state.value}
+               onChange={e => this.addCourseWithInput(e)}
+               className="form-control col-9 col-sm-9 col-md-8"
+               placeholder="newCourse" />
 
-          </nav>
+        <i onClick={this.addCourse}
+           className="fas fa-plus-circle float-right fa-2x"
+           style={{color: "red"}} />
 
-          <div style={stickyBottomRight}>
-              <div className="row">
-                  <i className="fa fa-plus-circle fa-4x"></i>
-              </div>
-          </div>
+
+        <div className="row" style={stickyBottomRight}>
+            <i onClick={this.addCourse}
+               className="fa fa-plus-circle fa-4x"/>
+        </div>
+
+        </nav>
+
+
 
         <div style={{padding:"60px"}}>
             {/*<Route path="/courses/table" component={CourseTable}/>*/}
@@ -126,17 +147,12 @@ export default class CourseManager
                   deleteCourse={this.deleteCourse}
                   courses={this.state.courses}/>
             </Route>
-            {/*<Route path="/courses/grid" component={CourseGrid}/>*/}
             <Route path="/courses/grid" exact={true} >
-              {/*<CourseGrid courses={this.state.courses}/>*/}
                 <CourseGrid
                     updateCourse={this.updateCourse}
                     deleteCourse={this.deleteCourse}
                     courses={this.state.courses}/>
             </Route>
-            {/*<CourseTable courses={this.state.courses}/>*/}
-            {/*<CourseGrid courses={this.state.courses}/>*/}
-
 
             {/*/!*1. original hard code*!/*/}
             {/*<Route path="/courses/editor">*/}
