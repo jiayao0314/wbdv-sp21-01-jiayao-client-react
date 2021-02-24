@@ -1,0 +1,7 @@
+.stickyBottomRight {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    color: red;
+    z_index: 10000;
+}

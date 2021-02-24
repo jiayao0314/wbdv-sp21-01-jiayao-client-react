@@ -29,6 +29,7 @@
 .card-content {
     border: lightgrey solid 3px;
     padding:  3px;
+    /*padding-color: red;*/
     height: 100%;
     /*color: red;*/
 }

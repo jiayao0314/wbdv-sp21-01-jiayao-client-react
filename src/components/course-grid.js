@@ -12,10 +12,10 @@ const CourseGrid = ({
     <div>
 
         <div className="row">
-            <h4 className="col-md-4 d-none d-md-block">Recent Documents</h4>
-            <h4 className="col-md-4 d-none d-md-block">Owned by me
+            <h5 className="col-md-4 d-none d-md-block">Recent Documents</h5>
+            <h5 className="col-md-4 d-none d-md-block">Owned by me
                 <i className="fas fa-sort-down"></i>
-            </h4>
+            </h5>
             <div className="col-sm-12 col-md-4 float-right" >
                 <Link to="/courses/table">
                     <i className="float-right fas fa-2x fa-list"></i>

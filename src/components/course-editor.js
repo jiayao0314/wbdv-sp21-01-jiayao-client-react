@@ -24,7 +24,7 @@ const CourseEditor = ({history}) => {
                     {/*<a className="navbar-brand col-4" href="../../public/index.html" className="mr-2 mt-1">*/}
                     <div className="nav-title" onClick={() => history.goBack()}>
                         <i className="fas fa-arrow-left"/>
-                            Course Editor - CS 5610
+                            Course Editor
                     </div>
                     <button className="navbar-toggler " type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"

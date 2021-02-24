@@ -14,10 +14,10 @@ export default class CourseTable extends
   render() {
     return(
       <div className="row">
-          <div className="col-md-5">Title</div>
-          <div className="col-md-2 d-none d-md-table-cell">Owned by</div>
-          <div className="col-md-2 d-none d-lg-table-cell">Last modified</div>
-          <div className="col-sm-12 col-md-3 float-right" >
+          <div className="col-6 col-md-4">Title</div>
+          <div className="col-md-3 d-none d-md-block">Owned by</div>
+          <div className="col-md-2 d-none d-lg-block">Last modified</div>
+          <div className="col-6 col-md-3 float-right" >
               <Link to="/courses/grid">
                   <i className="float-right fas fa-2x fa-th"></i>
               </Link>

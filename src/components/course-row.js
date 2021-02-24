@@ -7,7 +7,7 @@ const CourseRow = (
     lastModified="1/1/2021",
     owner="who knows?",
       deleteCourse,
-      updateCourse
+      updateCourse,
   }) => {
     const [editing, setEditing] = useState(false)
     const [title, setTitle] = useState(course.title)
@@ -22,8 +22,8 @@ const CourseRow = (
     }
 
     return(
-        <tr>
-        <td>
+        <tr className="row">
+        <td className="col-6 col-md-4">
             {
                 !editing &&
                 <Link to="/editor">
@@ -39,9 +39,9 @@ const CourseRow = (
                     value={title}/>
             }
         </td>
-        <td className="d-none d-md-table-cell">{course.owner}</td>
-        <td className="d-none d-lg-table-cell">{course.lastModified}</td>
-        <td>
+        <td className="col-md-3 d-none d-md-block">{course.owner}</td>
+        <td className="col-md-2 d-none d-lg-block">{course.lastModified}</td>
+        <td className="col-6 col-md-3">
             {
                 editing &&
                 <i onClick={() => deleteCourse(course)} className="fas fa-times float-right" style={{color: "red"}}/>}
