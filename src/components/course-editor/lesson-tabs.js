@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import lessonService from '../../services/lesson-service'
+import topicService, {findTopicsForLesson} from "../../services/topic-service";
 
 
 const LessonTabs = (
@@ -22,9 +23,10 @@ const LessonTabs = (
             findLessonsForModule(moduleId)
         }
     }, [moduleId]) // when the moduleId is changed, update the state
+
     return(
         <div>
-            <h2>Lessons</h2>
+            <h3>Lessons</h3>
             <ul className="nav nav-tabs">
                 {
                     lessons.map(lesson =>
@@ -51,14 +53,16 @@ const stpm = (state) => ({
 })
 const dtpm = (dispatch) => ({
     findLessonsForModule: (moduleId) => {
-        console.log("LOAD LESSONS FOR MODULE:")
-        console.log(moduleId)
-        lessonService.findLessonsForModule(moduleId)
-            .then(lessons => dispatch({
-                type: "FIND_LESSONS_FOR_MODULE",
-                lessons
-            }))
-    },
+        return (
+            lessonService.findLessonsForModule(moduleId)
+                .then(lessons => dispatch({
+                    type: "FIND_LESSONS_FOR_MODULE",
+                    lessons
+                })),
+            alert("select Lessons first or you can not add Topics!"),
+            topicService.findTopicsForLesson(undefined)
+                .then(topics => dispatch({type: "FIND_TOPICS_FOR_LESSON", topics: undefined}))
+                )},
     createLessonForModule: (moduleId) => {
         console.log("CREATE LESSON FOR MODULE: " + moduleId)
         lessonService
@@ -81,7 +85,6 @@ const dtpm = (dispatch) => ({
                 lesson
             })),
     findLesson: (lessonId) =>
-        // alert(moduleId);
         lessonService.findLesson(lessonId)
             .then(theLesson => dispatch({
                 type: "FIND_LESSON",

@@ -24,7 +24,7 @@ const TopicTabs = (
     }, [lessonId]) // when the lessonId is changed, update the state
     return(
         <div>
-
+            <h4 style={{textAlign: "center"}}>Topics</h4>
             <ul className="nav nav-pills">
                 {
                     topics.map(topic =>

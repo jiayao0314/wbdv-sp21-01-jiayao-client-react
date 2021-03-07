@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import moduleService from "../../services/module-service"
+import lessonService, {findLessonsForModule} from "../../services/lesson-service";
+import topicService from "../../services/topic-service";
 
 const ModuleList = (
     {
@@ -74,13 +76,19 @@ const dtpm = (dispatch) => {
                     type: "UPDATE_MODULE",
                     module
                 })),
-        findModulesForCourse: (courseId) =>
-            // alert(courseId);
-            moduleService.findModulesForCourse(courseId)
-                .then(theModules => dispatch({
-                    type: "FIND_MODULES_FOR_COURSE",
-                    modules: theModules
-                })),
+        findModulesForCourse: (courseId) => {
+            return (
+                moduleService.findModulesForCourse(courseId)
+                    .then(theModules => dispatch({
+                        type: "FIND_MODULES_FOR_COURSE",
+                        modules: theModules
+                    })),
+                alert("select Modules first or you can not add Lessons or Topics!"),
+                lessonService.findLessonsForModule(undefined)
+                    .then(lessons => dispatch({type: "FIND_LESSONS_FOR_MODULE", lessons: undefined})),
+                topicService.findTopicsForLesson(undefined)
+                    .then(topics => dispatch({type: "FIND_TOPICS_FOR_LESSON", topics: undefined}))
+                )},
         findModule: (moduleId) =>
             // alert(moduleId);
             moduleService.findModule(moduleId)
