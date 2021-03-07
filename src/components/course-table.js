@@ -28,17 +28,11 @@ export default class CourseTable extends
                   <i className="float-right fas fa-2x fa-file" style={{paddingRight: "15px"}}></i>
               </Link>
           </div>
-          {/*<Link to="/courses/grid">*/}
-          {/*    <i className="fas fa-th float-right fa-2x"></i>*/}
-          {/*</Link>*/}
 
         <table className="table">
             <thead></thead>
             <tbody>
-              {/*<CourseRow title="CS5610" owner="me"/>*/}
-              {/*<CourseRow title="CS3200" owner="you"/>*/}
-              {/*<CourseRow title="CS5200" owner="him"/>*/}
-              {/*<CourseRow title="CS4550" owner="she"/>*/}
+
               {
                 this.props.courses.map(course =>
                   <CourseRow

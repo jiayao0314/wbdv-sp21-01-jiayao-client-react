@@ -1,8 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import CourseEditor from "./course-editor";
-import CourseCard from "./course-card";
-import CourseRow from "./course-row";
+import CourseEditor from "./course-editor/course-editor";
+import CourseCard from "./course-card/course-card";
 
 const CourseGrid = ({
     courses,
