@@ -22,13 +22,11 @@ const CourseManagerHeader = ({
                 </div>
 
                 <nav className="navbar fixed-top navbar-light bg-light">
-                    <Link to="/">
-                        <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                    <a className="button" href="/">
+                        <button className="navbar-toggler" type="button" data-toggle="collapse">
                             <span className="navbar-toggler-icon"/>
                         </button>
-                    </Link>
+                    </a>
                     <a className="navbar-brand d-none d-lg-table-cell" href="/">Course Manager</a>
 
                     <input type="text"
