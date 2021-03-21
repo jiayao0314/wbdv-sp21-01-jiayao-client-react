@@ -11,7 +11,7 @@ const topicReducer = (state=initialState, action) => {
             }
         case "FIND_TOPIC":
             return {
-                topics: action.topics
+                topic: action.topic
             }
         case "CREATE_TOPIC":
             const newState = {

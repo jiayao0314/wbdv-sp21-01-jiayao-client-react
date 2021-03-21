@@ -8,22 +8,13 @@ function App() {
   return (
       <BrowserRouter>
           <div className="container-fluid">
-          <Route path="/" exact={true}  component={Home}/>
-          <Route path="/courses" component={CourseManager}/>
-          {/*<Route path="/editor" component={CourseEditor}/>*/}
-          <Route path="/editor" exact={true} render={(props) => <CourseEditor {...props}/>}/>
+          <Route path="/" exact={true}
+                 component={Home}/>
+          <Route path="/courses"
+                 component={CourseManager}/>
           </div>
       </BrowserRouter>
-      // <BrowserRouter>
-      //     <div className="container-fluid">
-      //         <Route path="/" exact={true}>
-      //             <Home/>
-      //         </Route>
-      //         <Route path="/courses">
-      //             <CourseManager/>
-      //         </Route>
-      //     </div>
-      // </BrowserRouter>
+
   );
 }
 

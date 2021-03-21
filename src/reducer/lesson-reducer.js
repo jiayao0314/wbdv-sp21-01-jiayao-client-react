@@ -11,7 +11,7 @@ const lessonReducer = (state=initialState, action) => {
             }
         case "FIND_LESSON":
             return {
-                lessons: action.lessons
+                lesson: action.lesson
             }
         case "CREATE_LESSON":
             const newState = {
