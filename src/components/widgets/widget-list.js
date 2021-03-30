@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {connect} from "react-redux";
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
+import ImageWidget from "./image-widget";
+import ListWidget from "./list-widget";
 import {useParams} from "react-router-dom";
 import widgetService from '../../services/widget-service'
 
@@ -21,6 +23,10 @@ const WidgetList = (
     const [newText, setNewText] = useState("")
     const [newSize, setNewSize] = useState()
     const [newType, setNewType] = useState()
+    const [newOrdered, setNewOrdered] = useState()
+    const [newURL, setNewURL] = useState()
+    const [newHeight, setNewHeight] = useState()
+    const [newWidth, setNewWidth] = useState()
 
     useEffect(() => {
         findWidgetsForTopic(topicId);
@@ -77,6 +83,28 @@ const WidgetList = (
                                     setNewText = {setNewText}
                                     setNewType = {setNewType}
                                     widget={widget}/>
+                            }
+                            {
+                                widget.type === "LIST" &&
+                                <ListWidget
+                                    // setWidget={setEditingWidget}
+                                    editing={editingWidget.id === widget.id}
+                                    widget={widget}
+                                    newOrdered = {newOrdered}
+                                    setNewOrdered = {setNewOrdered}/>
+                            }
+                            {
+                                widget.type === "IMAGE" &&
+                                <ImageWidget
+                                    // setWidget={setEditingWidget}
+                                    editing={editingWidget.id === widget.id}
+                                    widget={widget}
+                                    newURL = {newURL}
+                                    newHeight = {newHeight}
+                                    newWidth = {newWidth}
+                                    setNewURL = {setNewURL}
+                                    setNewHeight = {setNewHeight}
+                                    setNewWidth = {setNewWidth}/>
                             }
                         </li>
                     )
