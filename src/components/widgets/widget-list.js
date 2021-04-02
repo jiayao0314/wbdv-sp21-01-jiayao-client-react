@@ -18,93 +18,78 @@ const WidgetList = (
 
 ) => {
     const {moduleId, lessonId, topicId} = useParams();
-    const [editingWidget, setEditingWidget] = useState({});
-
-    const [newText, setNewText] = useState("")
-    const [newSize, setNewSize] = useState()
-    const [newType, setNewType] = useState()
-    const [newOrdered, setNewOrdered] = useState()
-    const [newURL, setNewURL] = useState()
-    const [newHeight, setNewHeight] = useState()
-    const [newWidth, setNewWidth] = useState()
+    const [widget, setWidget] = useState({});
 
     useEffect(() => {
-        findWidgetsForTopic(topicId);
+        if(topicId) {
+            findWidgetsForTopic(topicId);
+        }
     }, [moduleId, lessonId, topicId])
 
+    const handleChange = (async (event, id) => {
+        setWidget(widget => ({...widget, type: event}))
+    })
     return(
         <div>
             <i onClick={() => createWidgetForTopic(topicId)} className="fas fa-plus fa-2x float-right"></i>
-            {/*<h2>Widget List ({widgets.length}) {editingWidget.id}</h2>*/}
+            <h4>Widget List: click plus to add new one!</h4>
             <ul className="list-group">
                 {
-                    widgets.map(widget =>
-                        <li className="list-group-item" key={widget.id}>
+                    widgets.map(_widget =>
+                        <li className="list-group-item" key={_widget.id}>
                             {
-                                editingWidget.id === widget.id &&
+                                _widget.id === widget.id &&
                                 <>
                                     <i onClick={() => {
-                                        updateWidget({...editingWidget, text:newText, size:newSize, type:newType});
-                                        {setEditingWidget({});}
-                                    }} className="fas fa-2x fa-check float-right"></i>
-                                    <i onClick={() => deleteWidget(widget)}
-                                       className="fas fa-2x fa-trash float-right"></i>
+                                        updateWidget(_widget.id, widget);
+                                        setWidget({});
+                                    }} className="fas fa-2x fa-check float-right"/>
+                                    <i onClick={() => deleteWidget(_widget)}
+                                       className="fas fa-2x fa-trash float-right"/>
+                                    <select defaultValue={_widget.type}
+                                            // onChange={(event) => setWidget(widget => ({...widget, type: event.target.value}))}
+                                            onChange={(e) => handleChange(e.target.value, _widget.id)}
+                                            className="form-control">
+                                        <option value={"HEADING"}>Heading</option>
+                                        <option value={"PARAGRAPH"}>Paragraph</option>
+                                        <option value={"LIST"}>List</option>
+                                        <option value={"IMAGE"}>Image</option>
+                                    </select>
                                 </>
                             }
                             {
-                                editingWidget.id !== widget.id &&
+                                _widget.id !== widget.id &&
                                 <i onClick={() => {
-                                    setEditingWidget(widget);
-                                    setNewText(widget.text);
-                                    setNewSize(widget.size);
-                                    setNewType(widget.type)}}
-                                   className="fas fa-2x fa-cog float-right"></i>
+                                    setWidget(_widget)}}
+                                   className="fas fa-2x fa-cog float-right"/>
                             }
                             {
-                                widget.type === "HEADING" &&
+                                _widget.type === "HEADING" &&
                                 <HeadingWidget
-                                    newText = {newText}
-                                    newSize = {newSize}
-                                    newType = {newType}
-                                    editing={editingWidget.id === widget.id}
-                                    updateWidget = {updateWidget}
-                                    deleteWidget = {deleteWidget}
-                                    setNewText = {setNewText}
-                                    setNewSize = {setNewSize}
-                                    setNewType = {setNewType}
-                                    widget={widget}/>
+                                    setWidget={setWidget}
+                                    editing={_widget.id === widget.id}
+                                    widget={_widget}/>
                             }
                             {
-                                widget.type === "PARAGRAPH" &&
+                                _widget.type === "PARAGRAPH" &&
                                 <ParagraphWidget
-                                    newText = {newText}
-                                    newType = {newType}
-                                    editing={editingWidget.id === widget.id}
-                                    setNewText = {setNewText}
-                                    setNewType = {setNewType}
-                                    widget={widget}/>
+                                    setWidget={setWidget}
+                                    editing={_widget.id === widget.id}
+                                    widget={_widget}/>
                             }
                             {
-                                widget.type === "LIST" &&
+                                _widget.type === "LIST" &&
                                 <ListWidget
-                                    // setWidget={setEditingWidget}
-                                    editing={editingWidget.id === widget.id}
-                                    widget={widget}
-                                    newOrdered = {newOrdered}
-                                    setNewOrdered = {setNewOrdered}/>
+                                    setWidget={setWidget}
+                                    editing={_widget.id === widget.id}
+                                    widget={_widget}/>
                             }
                             {
-                                widget.type === "IMAGE" &&
+                                _widget.type === "IMAGE" &&
                                 <ImageWidget
-                                    // setWidget={setEditingWidget}
-                                    editing={editingWidget.id === widget.id}
-                                    widget={widget}
-                                    newURL = {newURL}
-                                    newHeight = {newHeight}
-                                    newWidth = {newWidth}
-                                    setNewURL = {setNewURL}
-                                    setNewHeight = {setNewHeight}
-                                    setNewWidth = {setNewWidth}/>
+                                    setWidget={setWidget}
+                                    editing={_widget.id === widget.id}
+                                    widget={_widget}/>
                             }
                         </li>
                     )
@@ -118,6 +103,7 @@ const WidgetList = (
 const stpm = (state) => ({
     widgets: state.widgetReducer.widgets
 })
+
 const dtpm = (dispatch) => ({
     findWidgetsForTopic: (topicId) => {
         widgetService.findWidgetsForTopic(topicId)
@@ -126,17 +112,17 @@ const dtpm = (dispatch) => ({
                 widgets
             }))
     },
-    createWidgetForTopic: (topicId, type, size, text) => {
+    createWidgetForTopic: (topicId) => {
         //console.log("CREATE TOPIC FOR LESSON: " + lessonId)
         widgetService
-            .createWidgetForTopic(topicId, type, size, text)
+            .createWidgetForTopic(topicId, {type: "HEADING", size: 1, text: "New Widget"})
             .then(widget => dispatch({
                 type: "CREATE_WIDGET",
                 widget
             }))
     },
-    updateWidget: (widget) =>
-        widgetService.updateWidget(widget.id, widget)
+    updateWidget: (wid, widget) =>
+        widgetService.updateWidget(wid, widget)
             .then(status => dispatch({
                 type: "UPDATE_WIDGET",
                 widget
@@ -148,8 +134,6 @@ const dtpm = (dispatch) => ({
                 widgetToDelete:widget
             }))
     },
-
 })
-
 
 export default connect(stpm, dtpm)(WidgetList);

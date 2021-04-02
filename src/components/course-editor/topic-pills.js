@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import topicService from '../../services/topic-service'
+import widgetService from "../../services/widget-service";
 
 
 const TopicTabs = (
@@ -15,7 +16,6 @@ const TopicTabs = (
         findTopic,
     }) => {
     const {layout, courseId, moduleId, lessonId, topicId} = useParams();
-    // const {} = useParams();
     useEffect(() => {
         console.log("LOAD TOPICS FOR LESSON: " + lessonId)
         if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
@@ -53,11 +53,15 @@ const dtpm = (dispatch) => ({
     findTopicsForLesson: (lessonId) => {
         console.log("LOAD TOPICS FOR LESSON:")
         console.log(lessonId)
-        topicService.findTopicsForLesson(lessonId)
+        topicService
+            .findTopicsForLesson(lessonId)
             .then(topics => dispatch({
                 type: "FIND_TOPICS_FOR_LESSON",
                 topics
             }))
+        alert("select Topics first or you can not add Widgets!")
+        widgetService.findWidgetsForTopic(undefined)
+            .then(widgets => dispatch({type: "FIND_WIDGETS_FOR_TOPIC", widgets: undefined}))
     },
     createTopicForLesson: (lessonId) => {
         console.log("CREATE TOPIC FOR LESSON: " + lessonId)

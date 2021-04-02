@@ -4,6 +4,7 @@ import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import lessonService from '../../services/lesson-service'
 import topicService, {findTopicsForLesson} from "../../services/topic-service";
+import widgetService from "../../services/widget-service";
 
 
 const LessonTabs = (
@@ -61,7 +62,9 @@ const dtpm = (dispatch) => ({
                 })),
             alert("select Lessons first or you can not add Topics!"),
             topicService.findTopicsForLesson(undefined)
-                .then(topics => dispatch({type: "FIND_TOPICS_FOR_LESSON", topics: undefined}))
+                .then(topics => dispatch({type: "FIND_TOPICS_FOR_LESSON", topics: undefined})),
+            widgetService.findWidgetsForTopic(undefined)
+                .then(widgets => dispatch({type: "FIND_WIDGETS_FOR_TOPIC", widgets: undefined}))
                 )},
     createLessonForModule: (moduleId) => {
         console.log("CREATE LESSON FOR MODULE: " + moduleId)

@@ -1,37 +1,32 @@
 import React from 'react'
 
-const ImageWidget = (
-    widget, editing,
-    newURL, setNewURL,
-    newHeight, setNewHeight,
-    newWidth, setNewWidth
-) => {
+const ImageWidget = ({widget, setWidget, editing}) => {
+
     return (
         <div>
             <h2>Image Widget</h2>
             {
                 !editing &&
-                    <img src={widget.src}
-                         alt={"can not find img"}
-                         width={widget.width}
-                         height={widget.height}/>
+                <div>
+                    <img src={widget.src} alt={widget.text} width={widget.width} height={widget.height}></img>
+                </div>
+
             }
+
             {
                 editing &&
                 <div>
                     URL
-                    <input value={newURL}
-                           onChange={(event) => setNewURL(event.target.value)}
-                           className="form-control"/>
+                    <input defaultValue={widget.src} onChange={(e) => setWidget(widget =>
+                        ({...widget, src : e.target.value}))} className="form-control"/>
                     width
-                    <input value={newHeight}
-                           onChange={(event) => setNewHeight(event.target.value)}
-                           className="form-control"/>
+                    <input defaultValue={widget.width} onChange = {(e) => setWidget(widget =>
+                        ({...widget, width : e.target.value}))} className="form-control"/>
                     height
-                    <input value={newWidth}
-                           onChange={(event) => setNewWidth(event.target.value)}
-                           className="form-control"/>
+                    <input defaultValue={widget.height} onChange = {(e) => setWidget(widget =>
+                        ({...widget, height : e.target.value}))} className="form-control"/>
                 </div>
+
             }
         </div>
     )

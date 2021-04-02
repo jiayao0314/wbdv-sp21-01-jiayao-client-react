@@ -3,22 +3,27 @@ const TOPICS_URL = WIDGET_URL + "/topics";
 const WIDGETS_URL = WIDGET_URL + "/widgets";
 
 
-export const createWidgetForTopic = (topicId, type, size, text) =>
-    fetch(`${TOPICS_URL}/${topicId}/widgets`, {
+export const createWidgetForTopic = (tid, widget) =>
+    fetch(`${TOPICS_URL}/${tid}/widgets`, {
         method: "POST",
-        body: JSON.stringify({type: "HEADING", size: 1, text: "New Widget Default Heading1"}),
+        body: JSON.stringify(widget),
         headers: {
             'content-type': 'application/json'
         }
     })
         .then(response => response.json())
 
-export const findWidgetsForTopic = (topicId) =>
-    fetch(`${TOPICS_URL}/${topicId}/widgets`)
+// newly add
+export const findAllWidgets = () =>
+    fetch(`${WIDGETS_URL}`)
+        .then(response => response.json());
+
+export const findWidgetsForTopic = (tid) =>
+    fetch(`${TOPICS_URL}/${tid}/widgets`)
         .then(response => response.json())
 
-export const deleteWidget = (widgetId) =>
-    fetch(`${WIDGETS_URL}/${widgetId}`, {
+export const deleteWidget = (wid) =>
+    fetch(`${WIDGETS_URL}/${wid}`, {
         method: "DELETE"
     })
         .then(response => response.json())
@@ -34,6 +39,8 @@ export const updateWidget = (wid, widget) =>
         .then(response => response.json())
 
 
-export default {
-    findWidgetsForTopic, createWidgetForTopic, deleteWidget, updateWidget
+const api = {
+    findWidgetsForTopic, createWidgetForTopic, deleteWidget, updateWidget, findAllWidgets
 }
+
+export default api;
