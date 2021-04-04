@@ -100,8 +100,9 @@ export default class CourseManager
 
     render() {
         return(
-            <Router>
-                <Switch>
+            // <Router>
+            //     <Switch>
+            <div>
                     <Route path="/courses/table" exact={true}>
                         <CourseManagerHeader
                             addCourse={this.addCourse}
@@ -124,19 +125,9 @@ export default class CourseManager
                             deleteCourse={this.deleteCourse}
                             courses={this.state.courses}/>
                     </Route>
-                    <Route path={[
-                        "/courses/:layout/edit/:courseId",
-                        "/courses/:layout/edit/:courseId/modules/:moduleId",
-                        "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId",
-                        "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics/:topicId",
-                        "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics/:topicId/:widgetId"]}
-                           exact={true}
-                            render={(props) =>
-                               <CourseEditor
-                                   {...props}/>}>
-                    </Route>
-                </Switch>
-        </Router>
+            </div>
+        //         </Switch>
+        // </Router>
     )
   }
 }
