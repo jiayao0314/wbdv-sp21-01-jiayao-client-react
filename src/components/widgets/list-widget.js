@@ -21,7 +21,7 @@ const ListWidget = ({widget, setWidget, editing}) => {
                             {
                                 widget.text.split("\n").map(item => {
                                     return(
-                                        <li>{item}</li>
+                                        <li key={item._id}>{item}</li>
                                     )
                                 })
                             }
@@ -33,7 +33,7 @@ const ListWidget = ({widget, setWidget, editing}) => {
                             {
                                 widget.text.split("\n").map(item => {
                                     return(
-                                        <li>{item}</li>
+                                        <li key={item._id}>{item}</li>
                                     )
                                 })
                             }
