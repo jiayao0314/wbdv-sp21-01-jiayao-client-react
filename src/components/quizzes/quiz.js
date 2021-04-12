@@ -1,30 +1,22 @@
 import React, {useState, useEffect} from "react";
 import {useParams} from 'react-router-dom'
 import Question from "./questions/question";
-import questionService from "../../services/quiz-service";
+import questionService from "../../services/question-service";
 
 const Quiz = () => {
 
     const {courseId, quizId} = useParams();
     const [questions, setQuestions] = useState([]);
-    useEffect(() => {
-        // TODO: move this to a service file
-        fetch(`http://localhost:3000/api/quizzes/${quizId}/questions`)
-            .then(response => response.json())
-            .then(questions => setQuestions(questions))
-    },[])
 
-    // useEffect(() => {
-    //     if(quizId !== "undefined" && typeof quizId !== "undefined") {
-    //         questionService.findQuizById(quizId)
-    //             .then(questions => setQuestions(questions))
-    //     }
-    // }, [])
+    useEffect(() => {
+        questionService.findQuestionsForQuiz(quizId)
+            .then(questions => setQuestions(questions))
+    }, [quizId])
 
     return(
         <div>
             <h2>Quiz {quizId}</h2>
-            {JSON.stringify(questions)}
+            {/*{JSON.stringify(questions)}*/}
             <ul>
                 {
                     questions.map(question =>
