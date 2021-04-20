@@ -52,8 +52,9 @@ const Quiz = () => {
                     {
                         graded &&
                         <div>
+                            <h4>Your score for this attempt is: {results.score}</h4>
                             <p>
-                                Your submission ID is: {results._id}
+                                submission ID is: {results._id}
                             </p>
                             <Link className='btn btn-secondary'
                                   to={`/courses/${courseId}/quizzes/${quizId}/results`}>See Results</Link>
