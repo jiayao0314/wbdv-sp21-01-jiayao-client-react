@@ -6,6 +6,7 @@ import Home from "./components/home";
 import React from "react";
 import QuizzesList from "./components/quizzes/quizzes-list";
 import Quiz from "./components/quizzes/quiz";
+import QuizResults from "./components/quizzes/quiz-results";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="/courses/:courseId/quizzes/:quizId" exact={true}>
               <Quiz/>
+          </Route>
+          <Route path={"/courses/:courseId/quizzes/:quizId/results"} exact={true}>
+              <QuizResults/>
           </Route>
           <Route path={[
               "/courses/:layout/edit/:courseId",

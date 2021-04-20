@@ -1,9 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-const TrueFalseQuestion = ({question}) => {
+const TrueFalseQuestion = ({question, questions, setQuestions, graded}) => {
     const [yourAnswer, setYourAnswer] = useState(null)
-    const [graded, setGraded] = useState(false)
     const choices = ['true', 'false']
+
+    useEffect(() => {
+        if (graded) {
+            const foundQuestion = questions.find(q => q._id === question._id);
+            const restOfQuestions = questions.filter(q => q._id !== question._id);
+            foundQuestion.answer = yourAnswer;
+            const newQuestions = [...restOfQuestions, foundQuestion];
+            setQuestions(newQuestions);
+        }
+    }, [graded])
+
     return (
         <div>
             <h4>
@@ -38,7 +48,7 @@ const TrueFalseQuestion = ({question}) => {
                 }
             </ul>
             <p>Your answer: {yourAnswer}</p>
-            <button onClick={() => setGraded(true)} className="btn-success">grade</button>
+            {/*<button onClick={() => setGraded(true)} className="btn-success">grade</button>*/}
         </div>
     )
 }

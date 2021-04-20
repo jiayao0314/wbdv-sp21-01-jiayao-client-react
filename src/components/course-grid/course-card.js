@@ -48,6 +48,9 @@ const CourseCard = ({
                     <Link to={`/courses/grid/edit/${course._id}`} className="btn btn-primary">
                         Go somewhere
                     </Link>
+                    <Link to={`/courses/${course._id}/quizzes`}>
+                        Quizzes
+                    </Link>
 
                     {
                         editing &&

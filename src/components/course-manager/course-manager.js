@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import CourseTable from "../course-table";
-import CourseGrid from "../course-grid";
+import CourseTable from "../course-table/course-table";
+import CourseGrid from "../course-grid/course-grid";
 import {BrowserRouter as Router, Switch, Link, Route, useParams} from "react-router-dom";
 import courseService, {findAllCourses, deleteCourse} from "../../services/course-service";
 import CourseEditor from "../course-editor/course-editor";
@@ -100,8 +100,6 @@ export default class CourseManager
 
     render() {
         return(
-            // <Router>
-            //     <Switch>
             <div>
                     <Route path="/courses/table" exact={true}>
                         <CourseManagerHeader
@@ -126,8 +124,6 @@ export default class CourseManager
                             courses={this.state.courses}/>
                     </Route>
             </div>
-        //         </Switch>
-        // </Router>
     )
   }
 }

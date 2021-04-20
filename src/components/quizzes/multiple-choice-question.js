@@ -1,8 +1,18 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-const MultipleChoiceQuestion = ({question}) => {
+const MultipleChoiceQuestion = ({question, questions, setQuestions, graded}) => {
     const [yourAnswer, setYourAnswer] = useState("")
-    const [graded, setGraded] = useState(false)
+
+    useEffect(() => {
+        if (graded) {
+            const foundQuestion = questions.find(q => q._id === question._id);
+            const restOfQuestions = questions.filter(q => q._id !== question._id);
+            foundQuestion.answer = yourAnswer;
+            const newQuestions = [...restOfQuestions, foundQuestion];
+            setQuestions(newQuestions);
+        }
+    }, [graded])
+
     return(
         <div>
             <h4>{question.question}
@@ -44,7 +54,7 @@ const MultipleChoiceQuestion = ({question}) => {
                 }
             </ul>
             <p>Your answer: {yourAnswer == null ? " " : yourAnswer}</p>
-            <button onClick={() => setGraded(true)} className="btn-success">grade</button>
+            {/*<button onClick={() => setGraded(true)} className="btn-success">Submit</button>*/}
         </div>
     )
 }

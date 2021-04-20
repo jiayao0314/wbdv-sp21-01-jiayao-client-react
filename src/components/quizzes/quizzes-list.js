@@ -16,22 +16,19 @@ const QuizzesList = () => {
     return(
         <div>
             <h2>Quizzes</h2>
-            <div className="list-group">
+            <ul className="list-group">
                 {
                     quizzes.map((quiz) => {
                         return(
-                            <>
-                                <Link key={quiz._id}
-                                    to={`/courses/${courseId}/quizzes/${quiz._id}`}
-                                    className="list-group-item">
-                                    {quiz.title}
-                                    <button className="border-primary float-right">start</button>
-                                </Link>
-                            </>
+                            <li className="list-group-item" key={quiz._id}>
+                                <Link
+                                    to={`/courses/${courseId}/quizzes/${quiz._id}`}>
+                                    {quiz.title}</Link>
+                            </li>
                         )
                     })
                 }
-            </div>
+            </ul>
         </div>
     )
 }
