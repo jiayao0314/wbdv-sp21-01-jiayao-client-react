@@ -1,4 +1,4 @@
-const QUIZZES_URL = 'http://localhost:3000/api/quizzes';
+const QUIZZES_URL = 'https://cm-node-server.herokuapp.com/api/quizzes';
 
 const findQuestionsForQuiz = (qid) => {
     return fetch(`${QUIZZES_URL}/${qid}/questions`)
